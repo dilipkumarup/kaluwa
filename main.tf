@@ -24,3 +24,8 @@ resource "azurerm_resource_group" "dilipresource" {
   name     = "dilip-rg6"
   location = "West Europe"
 }
+
+resource "azurerm_resource_group" "dilipresource" {
+  name     = "dilip-rg8"
+  location = "West Europe"
+}
