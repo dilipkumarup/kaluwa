@@ -38,3 +38,28 @@ stages:
         workingDirectory: 'D:\Dilip\kaluwa'
         environmentServiceNameAzureRM: 'AgentVinod2'
 
+- stage: 
+  dependsOn: Terraformplan
+  pool: server 
+  jobs:
+    - job: 
+      steps:
+        - task: ManualValidation@1
+          displayName: Manual Validation
+          inputs:
+            notifyUsers: 'dilipkumar.kumar331@gmail.com'
+            approvers: 'dilipkumar.kumar331@gmail.com'
+            instructions: 'time-out'
+
+- stage: 
+  jobs:
+    - job: 
+      steps:
+         - task: TerraformTask@5
+           inputs:
+             provider: 'azurerm'
+             command: 'plan'
+             workingDirectory: 'D:\Dilip\kaluwa'
+             environmentServiceNameAzureRM: 'AgentVinod2'
+
+
