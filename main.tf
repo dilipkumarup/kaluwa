@@ -16,7 +16,7 @@ terraform {
 
 provider "azurerm" {
   features {}
-  subscription_id = "f5c092a3-a10b-4952-9791-a66c5de6792b"
+  subscription_id = "76095b6e-0585-402e-8e43-281835aebfd1"
 }
 
 
@@ -25,7 +25,4 @@ resource "azurerm_resource_group" "dilipresource" {
   location = "West Europe"
 }
 
-resource "azurerm_resource_group" "dilipres203" {
-  name     = "dilip-rg8"
-  location = "West Europe"
-}
+
