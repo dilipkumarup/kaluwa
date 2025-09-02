@@ -22,7 +22,7 @@ stages:
         command: 'init'
         workingDirectory: 'D:\Dilip\kaluwa'
         backendServiceArm: 'serviceconnection1'
-        backendAzureRmStorageAccountName: 'dilipstg1'
+        backendAzureRmStorageAccountName: 'dilipstg2'
         backendAzureRmContainerName: 'dilip-con1'
         backendAzureRmKey: 'dku.tfstate'
 
