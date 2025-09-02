@@ -21,7 +21,7 @@ stages:
         provider: 'azurerm'
         command: 'init'
         workingDirectory: 'D:\Dilip\kaluwa'
-        backendServiceArm: 'AgentVinod2'
+        backendServiceArm: 'serviceconnection1'
         backendAzureRmStorageAccountName: 'dilipstg1'
         backendAzureRmContainerName: 'dilip-con1'
         backendAzureRmKey: 'dku.tfstate'
@@ -39,7 +39,7 @@ stages:
         provider: 'azurerm'
         command: 'plan'
         workingDirectory: 'D:\Dilip\kaluwa'
-        environmentServiceNameAzureRM: 'AgentVinod2'
+        environmentServiceNameAzureRM: 'serviceconnection1'
 
 - stage: 
   dependsOn: Terraformplan
