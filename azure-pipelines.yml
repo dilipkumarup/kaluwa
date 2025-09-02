@@ -56,16 +56,18 @@ stages:
             approvers: 'dilipkumar.kumar331@gmail.com'
             instructions: 'time-out'
 
-- stage: 
+
+- stage: terraformapply
+  pool: hamare_agentka_Jhund 
   jobs:
     - job: 
       steps:
       - task: TerraformTask@5
-        displayName: terraform apply
         inputs:
           provider: 'azurerm'
           command: 'apply'
           workingDirectory: 'D:\Dilip\kaluwa'
           environmentServiceNameAzureRM: 'serviceconnection1'
+      
 
 
