@@ -25,6 +25,8 @@ stages:
         backendAzureRmStorageAccountName: 'dilipstg2'
         backendAzureRmContainerName: 'dilip-con1'
         backendAzureRmKey: 'dku.tfstate'
+        allowTelemetryCollection: false
+        commandOptions: '-reconfigure'
 
     - task: TerraformTask@5
       displayName: Terraform validate
