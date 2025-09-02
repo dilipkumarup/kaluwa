@@ -6,7 +6,7 @@ terraform {
     }
   }
   backend "azurerm" {
-      resource_group_name  = "tfstate"
+      resource_group_name  = "dilip-rg"
       storage_account_name = "dilipstg2"
       container_name       = "dilip-con1"
       key                  = "dku.tfstate"
