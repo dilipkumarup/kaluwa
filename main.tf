@@ -10,6 +10,7 @@ terraform {
       storage_account_name = "dilipstg2"
       container_name       = "dilip-con1"
       key                  = "dku.tfstate"
+      use_azuread_auth     = true
   }
 }
 
