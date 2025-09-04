@@ -74,12 +74,18 @@ stages:
           backendAzureRmKey: 'dku.tfstate'
           commandOptions: '-reconfigure'
 
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'serviceconnection1'
+          scriptType: 'ps'
+          scriptLocation: 'inlineScript'
+          inlineScript: az account show
+
       - task: TerraformTask@5
         inputs:
           provider: 'azurerm'
           command: 'apply'
           workingDirectory: 'D:\Dilip\kaluwa'
           environmentServiceNameAzureRM: 'serviceconnection1'
-      
 
 
