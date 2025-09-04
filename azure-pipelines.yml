@@ -63,6 +63,17 @@ stages:
     - job: applyjob
       steps:
       - task: TerraformTask@5
+        displayName: 'Terraform Init before Apply'
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: 'D:\Dilip\kaluwa'
+          backendServiceArm: 'serviceconnection1'
+          backendAzureRmStorageAccountName: 'dilipstg2'
+          backendAzureRmContainerName: 'dilip-con1'
+          backendAzureRmKey: 'dku.tfstate'
+          commandOptions: '-reconfigure'
+      - task: TerraformTask@5
         inputs:
           provider: 'azurerm'
           command: 'apply'
