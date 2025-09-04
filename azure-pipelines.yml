@@ -42,14 +42,14 @@ stages:
         workingDirectory: 'D:\Dilip\kaluwa'
         environmentServiceNameAzureRM: 'serviceconnection1'
 
-- stage: 
+- stage: manualvalidation 
   dependsOn: Terraformplan
   pool: server 
   jobs:
     - job: 
       steps:
         - task: ManualValidation@1
-          displayName: Manual Validation
+          displayName: 'Manual Validation'
           inputs:
             notifyUsers: 'dilipkumar.kumar331@gmail.com'
             approvers: 'dilipkumar.kumar331@gmail.com'
@@ -57,9 +57,10 @@ stages:
 
 
 - stage: terraformapply
+  dependsOn: manualvalidation
   pool: hamare_agentka_Jhund 
   jobs:
-    - job: 
+    - job: applyjob
       steps:
       - task: TerraformTask@5
         inputs:
