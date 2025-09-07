@@ -42,6 +42,12 @@ stages:
         workingDirectory: 'D:\Dilip\kaluwa'
         environmentServiceNameAzureRM: 'serviceconnection1'
 
+- stage: Scanning 
+  displayName: Scanning
+  jobs:
+  - job: TFsecScanningJob
+  - job: TfLintScanningJob
+
 - stage: manualvalidation 
   dependsOn: Terraformplan
   pool: server 
