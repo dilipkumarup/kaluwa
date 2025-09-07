@@ -1,37 +1,82 @@
-trigger: none
+trigger:
+  branches:
+    include:
+      - feature/*
+      - main
 
 pool: hamare_agentka_Jhund
 
-steps:
-- task: TerraformInstaller@1
-  displayName: Terraform Install
-  inputs:
-    terraformVersion: 'latest'
+stages:
+- stage: TerraformPlan
+  jobs:
+  - job: Plan
+    steps:
+    - task: TerraformInstaller@1
+      inputs:
+        terraformVersion: 'latest'
 
-- task: TerraformTask@5
-  displayName: Terraform initwa
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    workingDirectory: 'D:\Dilip\kaluwa'
-    backendServiceArm: 'serviceconnection1'
-    backendAzureRmResourceGroupName: 'dilip-rg'
-    backendAzureRmStorageAccountName: 'dilipstg2'
-    backendAzureRmContainerName: 'dilip-con1'
-    backendAzureRmKey: 'dku.tfstate'
+    - task: TerraformTask@5
+      displayName: Terraform init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        workingDirectory: 'D:\Dilip\kaluwa'
+        backendServiceArm: 'serviceconnection1'
+        backendAzureRmStorageAccountName: 'dilipstg2'
+        backendAzureRmContainerName: 'dilip-con1'
+        backendAzureRmKey: 'dku.tfstate'
+        
 
-- task: TerraformTask@5
-  displayName: terraform validatwa
-  inputs:
-    provider: 'azurerm'
-    command: 'validate'
-    workingDirectory: 'D:\Dilip\kaluwa'
+    - task: TerraformTask@5
+      displayName: Terraform validate
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: 'D:\Dilip\kaluwa'
 
-- task: TerraformTask@5
-  displayName: terraform planwa 
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    workingDirectory: 'D:\Dilip\kaluwa'
-    environmentServiceNameAzureRM: 'serviceconnection1'
+    - task: TerraformTask@5
+      displayName: Terraform plan
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: 'D:\Dilip\kaluwa'
+        environmentServiceNameAzureRM: 'serviceconnection1'
 
+- stage: manualvalidation 
+  dependsOn: Terraformplan
+  pool: server 
+  jobs:
+    - job: 
+      steps:
+        - task: ManualValidation@1
+          displayName: 'Manual Validation'
+          inputs:
+            notifyUsers: 'dilipkumar.kumar331@gmail.com'
+            approvers: 'dilipkumar.kumar331@gmail.com'
+            instructions: 'time-out'
+
+
+- stage: terraformapply
+  dependsOn: manualvalidation
+  pool: hamare_agentka_Jhund 
+  jobs:
+    - job: applyjob
+      steps:
+      - task: TerraformTask@5
+        displayName: 'Terraform Init before Apply'
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          workingDirectory: 'D:\Dilip\kaluwa'
+          backendServiceArm: 'serviceconnection1'
+          backendAzureRmStorageAccountName: 'dilipstg2'
+          backendAzureRmContainerName: 'dilip-con1'
+          backendAzureRmKey: 'dku.tfstate'
+          
+      - task: TerraformTask@5
+        inputs:
+          provider: 'azurerm'
+          command: 'apply'
+          workingDirectory: 'D:\Dilip\kaluwa'
+          environmentServiceNameAzureRM: 'serviceconnection1'
+      
