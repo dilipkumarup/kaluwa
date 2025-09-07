@@ -4,10 +4,12 @@ pool: hamare_agentka_Jhund
 
 steps:
 - task: TerraformInstaller@1
+  displayName: Terraform Install
   inputs:
     terraformVersion: 'latest'
 
 - task: TerraformTask@5
+  displayName: Terraform initwa
   inputs:
     provider: 'azurerm'
     command: 'init'
@@ -19,12 +21,14 @@ steps:
     backendAzureRmKey: 'dku.tfstate'
 
 - task: TerraformTask@5
+  displayName: terraform validatwa
   inputs:
     provider: 'azurerm'
     command: 'validate'
     workingDirectory: 'D:\Dilip\kaluwa'
 
 - task: TerraformTask@5
+  displayName: terraform planwa 
   inputs:
     provider: 'azurerm'
     command: 'plan'
